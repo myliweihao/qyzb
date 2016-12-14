@@ -1,0 +1,41 @@
+<div class="row">
+    <h1 class="text-center">轻院点播列表</h1>
+    <hr style="width:30%;border-color:red"/>
+    <div class="col-md-2 col-sm-2" ng-controller="getProgramTypeController">
+        <ul class="nav nav-pills nav-stacked text-center" role="tablist">
+            <li ng-class="{active:getActiveAll()}"><a href="#" ng-click="allProgram()">全部点播</a></li>
+            <li ng-repeat="item in programType" ng-class="{active:getActive(item.id)}">
+                <a href="#" ng-click="filterProgram(item.id)">{{item.name}}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-10 col-sm-10" ng-controller="dianBoController">
+        <div class="nav nav-pills nav-stacked text-center" role="tablist">
+            <div class="col-md-4 col-sm-4 text-left" ng-repeat="item in dianBoData"
+                 ng-show="item.type_id == typeData || all || item.has_one_user.name == searchSpeaker">
+                <div class="media" ng-click="bofan(item.videosrc)">
+                    <a class="media-left" href="#">
+                        <img src="http://localhost/qyzbApi5.1/storage/file/images/{{item.dianbosrc}}"
+                             alt="加载失败" width="150px" height="120px">
+                    </a>
+                    <div class="media-body">
+                        <p>
+                            <small>主讲：{{item.has_one_user.name}}</small>
+                        </p>
+                        <p>
+                            <small>标题：{{item.title}}</small>
+                        </p>
+                        <p>
+                            <small>描述：{{item.describe}}</small>
+                        </p>
+                        <p>
+                            <small>类型：{{item.has_one_type.name}}</small>
+                        </p>
+                    </div>
+                </div>
+
+                <hr style="width:90%" class="pull-left"/>
+            </div>
+        </div>
+    </div>
+</div>

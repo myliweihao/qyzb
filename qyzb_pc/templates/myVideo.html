@@ -1,0 +1,78 @@
+<div ng-controller="myVideoController">
+    <div class="h2 col-md-offset-4">我的视频管理</div>
+    <br/>
+    <form class="form-horizontal" role="form" name="myVideoForm" ng-submit="yuGao()">
+        <div class="form-group" ng-class="{'has-error':
+        (myVideoForm.speaker.$invalid && myVideoForm.speaker.$dirty)}">
+            <label class="control-label col-md-3">主讲人</label>
+            <div class="col-md-4">
+                <!--<input type="text" class="form-control" placeholder="主讲人" name="speaker" id="speaker"
+                       ng-model="myVideoData.speaker"
+                       ng-required="true" ng-maxlength="20">-->
+                <p class="form-control-static">{{myVideoData.speaker}}</p>
+            </div>
+            <div class="col-md-5 form-control-static text-danger"
+                 ng-show="myVideoForm.speaker.$dirty">
+                <p ng-show="myVideoForm.speaker.$error.required">主讲人不能为空</p>
+                <p ng-show="myVideoForm.speaker.$error.maxlength">主讲人长度不能超过20位</p>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{'has-error':
+        (myVideoForm.title.$invalid && myVideoForm.title.$dirty)}">
+            <label class="control-label col-md-3" for="title">预告标题</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="预告标题(必填)" name="title" id="title"
+                       ng-model="myVideoData.title"
+                       ng-required="true" ng-maxlength="20">
+            </div>
+            <div class="col-md-5 form-control-static text-danger"
+                 ng-show="myVideoForm.title.$dirty">
+                <p ng-show="myVideoForm.title.$error.required">预告标题不能为空</p>
+                <p ng-show="myVideoForm.title.$error.maxlength">标题长度不能超过20位</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">直播类型</label>
+            <div class="col-md-4">
+                <select ng-model="myVideoData.inputType" class="form-control"
+                        ng-options="x.id as x.name for x in myVideoData.type"
+                        ng-required="true">
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">直播描述</label>
+            <div class="col-md-4">
+                <textarea class="form-control" rows="3" placeholder="长度少于40的描述（选填）"
+                          ng-model="myVideoData.describe"></textarea>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-1">
+                <input type="submit" class="btn btn-primary" value="发布预告"
+                       ng-disabled="myVideoForm.$invalid">
+            </div>
+            <div class="col-md-offset-5">
+                <input type="reset" class="btn btn-default" value="清空">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-4">
+                <div class="alert alert-success"
+                     ng-show="myVideoData.success_mes">成功发布预告节目！
+                </div>
+                <div class="alert alert-danger"
+                     ng-show="myVideoData.failed_mes">发布预告节目失败！
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+</div>

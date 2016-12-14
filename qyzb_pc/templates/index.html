@@ -1,0 +1,37 @@
+<div class="row">
+    <h1 class="text-center">轻院直播列表</h1>
+    <hr style="width:30%;border-color:red"/>
+    <div class="col-md-2" ng-controller="getProgramTypeController">
+        <ul class="nav nav-pills nav-stacked text-center" role="tablist">
+            <li ng-class="{active:getActiveAll()}"><a href="#" ng-click="allProgram()">全部直播</a></li>
+            <li ng-repeat="item in programType" ng-class="{active:getActive(item.id)}">
+                <a href="#" ng-click="filterProgram(item.id)">{{item.name}}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-10" ng-controller="ziBoController">
+        <div class="nav nav-pills nav-stacked text-center" role="tablist">
+            <div class="col-md-4 text-left" ng-repeat="item in ziBoData"
+                 ng-show="item.type_id == typeData || all || item.has_one_user.name == searchSpeaker">
+                <div class="media" ng-click="bofan(item.videosrc)">
+                    <a class="media-left" href="#">
+                        <img src="http://localhost/qyzbApi5.1/storage/file/images/{{item.zibosrc}}"
+                             alt="加载失败" width="150px" height="100px">
+                    </a>
+                    <div class="media-body">
+                        <small>主讲：{{item.has_one_user.name}}</small>
+                        <br/>
+                        <small>标题：{{item.title}}</small>
+                        <br/>
+                        <small>描述：{{item.describe}}</small>
+                        <br/>
+                        <small>类型：{{item.has_one_program_type.name}}</small>
+                        <br/>
+                    </div>
+                </div>
+
+                <hr style="width:90%" class="pull-left"/>
+            </div>
+        </div>
+    </div>
+</div>

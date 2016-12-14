@@ -1,0 +1,86 @@
+<div ng-controller="registerController">
+    <div class="h2 col-md-offset-4">注册页面</div>
+    <br/>
+    <form class="form-horizontal" role="form" name="registerForm" ng-submit="register()">
+        <!-- 用户名 -->
+        <div class="form-group" ng-class="{'has-error':
+        (registerForm.username.$invalid && registerForm.username.$dirty) ||
+        registerData.exist}">
+            <label class="control-label col-md-3" for="username">手机</label>
+            <div class="col-md-4">
+                <input type="number" class="form-control" placeholder="手机号码" name="username" id="username"
+                       ng-minlength="11" ng-maxlength="11" ng-model="registerData.mobile"
+                       ng-required="true" ng-blur="checkUserNameExist()"
+                       ng-focus="registerData.exist = false">
+            </div>
+            <div class="col-md-5 form-control-static text-danger"
+                 ng-show="registerForm.username.$dirty">
+                <p ng-show="registerForm.username.$error.required">手机号不能为空</p>
+                <p ng-show="registerForm.username.$error.minlength">手机号不能少于11位</p>
+                <p ng-show="registerForm.username.$error.maxlength">手机号不能多于11位</p>
+                <p ng-show="registerData.exist">该手机号已注册，请直接<a ui-sref="login">登陆</a>，或重新检查该号码。</p>
+            </div>
+        </div>
+
+        <!--  密码  -->
+        <div class="form-group" ng-class="{'has-error':registerForm.password.$invalid &&
+        registerForm.password.$dirty}">
+            <label for="password" class="control-label col-md-3">密码</label>
+            <div class="col-md-4">
+                <input type="password" id="password" name="password" class="form-control" placeholder="6~18位的密码"
+                       ng-model="registerData.password" ng-required="true" ng-minlength="6"
+                       ng-maxlength="18">
+            </div>
+            <div class="col-md-5 form-control-static text-danger"
+                 ng-show="registerForm.password.$dirty">
+                <p ng-show="registerForm.password.$error.required">密码不能为空</p>
+                <p ng-show="registerForm.password.$error.minlength">密码长度不能少于6位</p>
+                <p ng-show="registerForm.password.$error.maxlength">密码长度不能多于18位</p>
+            </div>
+        </div>
+
+        <!-- 确认密码 -->
+        <div class="form-group" ng-class="{'has-error':registerForm.confirmPassword.$invalid &&
+                registerForm.confirmPassword.$dirty}">
+            <label for="confirmPassword" class="control-label col-md-3">确认密码</label>
+            <div class="col-md-4">
+                <input type="password" id="confirmPassword" class="form-control" placeholder="确认密码"
+                       name="confirmPassword" ng-model="registerData.confirmPassword" ng-required="true">
+            </div>
+            <div class="col-md-5 text-danger form-control-static"
+                 ng-show="registerForm.confirmPassword.$dirty">
+                <div ng-show="registerData.confirmPassword != registerData.password &&
+                    registerForm.password.$valid">两次密码不一致
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-1">
+                <input type="submit" class="btn btn-primary" value="注册"
+                       ng-disabled="
+                       registerForm.$invalid ||
+                       registerData.confirmPassword != registerData.password ||
+                       registerData.exist ">
+            </div>
+            <div class="col-md-offset-4">
+                <input type="reset" class="btn btn-default" value="重置"
+                       ng-click="reset()">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-4">
+                <div class="alert alert-success"
+                     ng-show="registerData.register_success_mes">注册成功,请前往
+                    <a ui-sref="login">登陆</a>
+                </div>
+                <div class="alert alert-danger"
+                     ng-show="registerData.register_failed_mes">注册失败
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+</div>
